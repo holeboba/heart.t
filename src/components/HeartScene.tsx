@@ -35,7 +35,7 @@ const HeartCloud = () => {
   const group = useRef<THREE.Group>(null!);
   const particles = useMemo(() => {
     const temp = [];
-    const count = 150; // Optimized count
+    const count = 70; // Optimized count
     const text = "Я тебя люблю";
     
     for (let i = 0; i < count; i++) {
