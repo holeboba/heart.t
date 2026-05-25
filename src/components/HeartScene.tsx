@@ -35,8 +35,8 @@ const HeartCloud = () => {
   const group = useRef<THREE.Group>(null!);
   const particles = useMemo(() => {
     const temp = [];
-    const count = 250; // Optimized count
-    const text = "i love you";
+    const count = 300; // Optimized count
+    const text = "я тебя люблю";
     
     for (let i = 0; i < count; i++) {
         const t = Math.random() * Math.PI * 2;
