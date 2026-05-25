@@ -20,7 +20,6 @@ export default function TextHeart() {
     let animationFrameId: number;
     let points: Point[] = [];
     const text = "Я тебя люблю";
-    const fontSize = 14;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -30,15 +29,17 @@ export default function TextHeart() {
 
     const initPoints = () => {
       points = [];
+
+      const isMobile = window.innerWidth < 600;
+
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const scale = Math.min(canvas.width, canvas.height) / 45;
 
-      // Heart equation: 
-      // x = 16 sin^3(t)
-      // y = -(13 cos(t) - 5 cos(2t) - 2 cos(3t) - cos(4t))
-      
-      for (let t = 0; t < Math.PI * 2; t += 0.05) {
+      // 👇 уменьшил масштаб для телефона
+      const scale = Math.min(canvas.width, canvas.height) / (isMobile ? 65 : 45);
+
+      // 👇 уменьшил количество точек
+      for (let t = 0; t < Math.PI * 2; t += (isMobile ? 0.12 : 0.06)) {
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
         
@@ -46,39 +47,44 @@ export default function TextHeart() {
           x: centerX + x * scale,
           y: centerY + y * scale,
           alpha: 0,
-          targetAlpha: 0.8 + Math.random() * 0.2,
-          delay: Math.random() * 2000
+          targetAlpha: 0.8,
+          delay: Math.random() * 1500
         });
       }
 
-      // Add inner layers
-      for (let s = 0.2; s < 1; s += 0.2) {
-          for (let t = 0; t < Math.PI * 2; t += 0.1) {
-            const x = 16 * Math.pow(Math.sin(t), 3);
-            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-            
-            points.push({
-              x: centerX + x * scale * s,
-              y: centerY + y * scale * s,
-              alpha: 0,
-              targetAlpha: 0.4 + Math.random() * 0.4,
-              delay: Math.random() * 3000
-            });
-          }
+      // 👇 меньше внутренних слоёв
+      for (let s = 0.4; s < 1; s += 0.3) {
+        for (let t = 0; t < Math.PI * 2; t += (isMobile ? 0.2 : 0.1)) {
+          const x = 16 * Math.pow(Math.sin(t), 3);
+          const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+          
+          points.push({
+            x: centerX + x * scale * s,
+            y: centerY + y * scale * s,
+            alpha: 0,
+            targetAlpha: 0.5,
+            delay: Math.random() * 2000
+          });
+        }
       }
     };
 
     let start: number | null = null;
+
     const draw = (time: number) => {
       if (!start) start = time;
       const elapsed = time - start;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = `${fontSize}px "Fira Code", monospace`;
-      
+
+      const isMobile = window.innerWidth < 600;
+
+      // 👇 меньше текст на телефоне
+      ctx.font = `${isMobile ? 10 : 14}px "Fira Code", monospace`;
+
       points.forEach(p => {
         if (elapsed > p.delay) {
-            p.alpha += (p.targetAlpha - p.alpha) * 0.02;
+          p.alpha += (p.targetAlpha - p.alpha) * 0.03;
         }
 
         ctx.fillStyle = `rgba(255, 77, 109, ${p.alpha})`;
