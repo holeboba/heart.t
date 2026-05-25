@@ -52,7 +52,7 @@ export default function App() {
               <div className="flex gap-2 text-pink-soft/60">
                 <span>[system]</span>
                 <Typewriter 
-                  text="Initializing heart.PROTOCOL_v2.0..." 
+                  text="я тебя очень люблю жани" 
                   delay={30} 
                   onComplete={() => setConsoleFinished(true)}
                 />
@@ -66,7 +66,7 @@ export default function App() {
                         animate={{ opacity: 1 }} 
                         className="text-green-400"
                     >
-                        READY
+                        готова
                     </motion.span>
                 )}
               </div>
@@ -78,7 +78,7 @@ export default function App() {
                   className="pt-8 flex flex-col items-start gap-6"
                 >
                   <p className="text-white/40 italic">
-                    {">"} One encrypted package found for you.
+                    {">"} нажми на кнопочку
                   </p>
                   
                   <button
@@ -90,12 +90,12 @@ export default function App() {
                     className="group flex items-center gap-3 px-6 py-3 border border-pink-deep/30 bg-pink-deep/5 hover:bg-pink-deep/10 text-pink-soft transition-all duration-300 pointer-events-auto"
                   >
                     <Lock size={16} className="group-hover:rotate-12 transition-transform" />
-                    <span className="font-mono tracking-widest uppercase text-xs">Decrypt Message</span>
+                    <span className="font-mono tracking-widest uppercase text-xs">посмотреть</span>
                     <span className="terminal-cursor" />
                   </button>
                   
                   <p className="text-[10px] text-white/20 animate-pulse">
-                    (or just click anywhere)
+                    (или куда захочешь)
                   </p>
                 </motion.div>
               )}
